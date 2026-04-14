@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 
 const categories = ["maker", "code dev", "garden", "research"];
 const posts = [
@@ -23,13 +23,8 @@ const highlights = [
 ];
 ---
 
-<html lang="en">
-	<head>
-		<title>wildgrove</title>
-    	<meta name="viewport" content="width=device-width, initial-scale=1" />
-  	</head>
-
-  	<body class="min-h-screen bg-neutral-950 text-gray-100 antialiased">
+<Layout title="Wild Grove">
+  	<div class="min-h-screen bg-neutral-950 text-gray-100 antialiased">
     	<!-- Header -->
     	<header class="border-b border-white/20 bg-black/100 backdrop-blur">
       		<div class="container-page py-5 flex items-center justify-center">
@@ -151,5 +146,5 @@ const highlights = [
     <footer class="container-page py-10 text-center muted">
 		&copy; {new Date().getFullYear()} Wild Grove
     </footer>
-  </body>
-</html>
+  	</div>
+</Layout>

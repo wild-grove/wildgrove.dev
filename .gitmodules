@@ -1,3 +1,6 @@
 [submodule "public/assets"]
 	path = public/assets
 	url = git@github.com:wild-grove/assets.git
+[submodule "content"]
+	path = content
+	url = git@github.com:wild-grove/content.git

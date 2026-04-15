@@ -1,25 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import repos from "../../content/curated/repos.json";
+import resources from "../../content/curated/resources.json";
+import highlights from "../../content/curated/highlights.json";
 
 const categories = ["maker", "code dev", "garden", "research"];
 const posts = [
 	{ title: "Recent Post #1", date: "2025-09-03", href: "#" },
-];
-
-const repos = [
-	{ img: "github.svg", name: "wild-grove/site", desc: "website & docs", href: "https://github.com/wild-grove/site" },
-	{ img: "github.svg", name: "wkhenon/runny", desc: "NPK sensor suite for soil and water", href: "https://github.com/wkhenon/runny" },
-];
-
-const resources = [
-	{ img: "file-icon.svg", name: "Resource #1", desc: "One-liner about the resource and why its useful.", href: "#" },
-];
-
-const highlights = [
-	{ name: "Audubon Florida", href: "https://www.audubon.org/florida"},
-	{ name: "Florida Springs Council", href: "https://www.floridaspringscouncil.org/springs-organizations"},
-	{ name: "IDEAS For Us", href: "https://ideasforus.org/mission/"},
-	{ name: "UF/IFAS Extension", href: "https://sfyl.ifas.ufl.edu/who-we-are/about-extension/"},
 ];
 ---
 

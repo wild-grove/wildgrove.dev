@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-display: swap;
+  font-family: 'Wild Grove Wordmark';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/assets/fonts/Chakra_Petch/ChakraPetch-SemiBold.ttf') format('truetype');
+}
+
 /* chakra-petch-regular - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
@@ -18,6 +26,14 @@
 
   .label-font {
     font-family: 'Chakra Petch', sans-serif;
+  }
+
+  .brand-wordmark {
+    font-family: 'Wild Grove Wordmark', 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 0.9;
+    text-transform: uppercase;
   }
 }
 

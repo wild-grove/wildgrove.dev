@@ -8,13 +8,12 @@
   src: url('/assets/fonts/Chakra_Petch/ChakraPetch-SemiBold.ttf') format('truetype');
 }
 
-/* chakra-petch-regular - latin */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: 'Chakra Petch';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/chakra-petch-v12-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('/assets/fonts/Chakra_Petch/ChakraPetch-Regular.ttf') format('truetype');
 }
 
 @layer base {
@@ -39,12 +38,13 @@
 
 @layer components {
   .container-page { @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .container-stage { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
 
   .chip {
     @apply inline-flex items-center px-3 py-1 rounded-full
            text-sm font-medium
-           bg-green-600/15 text-green-300 ring-1 ring-inset ring-green-600/30
-           hover:bg-indigo-600/20 transition;
+           bg-white/10 text-white/80 ring-1 ring-inset ring-white/15
+           hover:bg-white/15 transition;
   }
 
   .card {
@@ -52,7 +52,30 @@
            shadow-lg shadow-black/20 p-5 sm:p-6;
   }
 
+  .body-stage {
+    background:
+      linear-gradient(180deg, rgba(6, 6, 6, 0.94) 0%, rgba(6, 6, 6, 0.78) 16%, rgba(6, 6, 6, 0.86) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.2) 22%, rgba(0, 0, 0, 0.4) 100%),
+      url('/assets/background/background-v1.jpg');
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .floating-panel {
+    @apply rounded-3xl border border-white/12 bg-black/55 shadow-2xl shadow-black/45 backdrop-blur-md;
+  }
+
+  .side-panel {
+    @apply rounded-3xl border border-white/12 bg-black/55 p-5 shadow-2xl shadow-black/45 backdrop-blur-md sm:p-6;
+  }
+
+  .post-card {
+    @apply rounded-3xl border border-white/12 bg-black/45 p-6 shadow-xl shadow-black/35 backdrop-blur-sm;
+  }
+
   .section-title { @apply text-lg font-semibold tracking-tight text-white/90; }
   .muted { @apply text-sm text-white/60; }
-  .link-arrow { @apply text-amber-300 hover:text-amber-200 underline underline-offset-4; }
+  .link-arrow { @apply text-white/80 hover:text-white underline underline-offset-4; }
 }

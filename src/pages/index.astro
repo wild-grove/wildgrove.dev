@@ -96,40 +96,40 @@ const posts = [
 						</section>
 					</aside>
 
-					<section class="order-1 space-y-5 xl:order-2">
+					<section class="order-1 xl:order-2">
 						<div class="floating-panel p-5 sm:p-7">
 							<div class="flex items-end justify-between gap-6">
 								<div class="space-y-2">
-									<p class="label-font text-xs uppercase tracking-[0.32em] text-white/45">Journal</p>
+									<p class="label-font text-xs uppercase tracking-[0.32em] text-white/45">Posts</p>
 									<h2 class="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Recent Posts</h2>
 									<p class="max-w-2xl text-sm text-white/60 sm:text-base">
-										Notes, experiments, and field updates from the grove.
+										Notes, experiments, research, and updates.
 									</p>
 								</div>
 								<a href="/posts" class="link-arrow label-font hidden sm:inline">See all posts</a>
 							</div>
-						</div>
 
-						<ul class="space-y-5">
-							{posts.map((p) => (
-								<li class="post-card">
-									<a href={p.href} class="block group">
-										<div class="flex items-start justify-between gap-6">
-											<h3 class="text-xl font-semibold text-white transition group-hover:text-white/80 sm:text-2xl">
-												{p.title}
-											</h3>
-											<time class="muted whitespace-nowrap pt-1">{p.date}</time>
-										</div>
-										<p class="mt-3 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-											One-sentence teaser goes here.
-										</p>
-									</a>
-								</li>
-							))}
-						</ul>
+							<ul class="mt-6 space-y-4 border-t border-white/8 pt-6">
+								{posts.map((p) => (
+									<li class="journal-entry">
+										<a href={p.href} class="block group">
+											<div class="flex items-start justify-between gap-6">
+												<h3 class="text-xl font-semibold text-white transition group-hover:text-white/80 sm:text-2xl">
+													{p.title}
+												</h3>
+												<time class="muted whitespace-nowrap pt-1">{p.date}</time>
+											</div>
+											<p class="mt-3 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
+												One-sentence teaser goes here.
+											</p>
+										</a>
+									</li>
+								))}
+							</ul>
 
-						<div class="sm:hidden">
-							<a href="/posts" class="link-arrow label-font">See all posts</a>
+							<div class="mt-5 sm:hidden">
+								<a href="/posts" class="link-arrow label-font">See all posts</a>
+							</div>
 						</div>
 					</section>
 

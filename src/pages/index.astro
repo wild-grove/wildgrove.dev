@@ -5,16 +5,18 @@ import repos from "../../content/curated/repos.json";
 import resources from "../../content/curated/resources.json";
 import highlights from "../../content/curated/highlights.json";
 
-const categories = ["maker", "code dev", "garden", "research"];
-const posts = (await getCollection("posts", ({ data }) => !data.draft))
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-	.slice(0, 3)
-	.map((post) => ({
-		title: post.data.title,
-		date: post.data.pubDate.toISOString().slice(0, 10),
-		description: post.data.description,
-		href: `/posts/${post.id}/`,
-	}));
+const allPosts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const categories = [...new Set(allPosts.flatMap((post) => post.data.tags).filter(Boolean))];
+
+const posts = allPosts.slice(0, 3).map((post) => ({
+	title: post.data.title,
+	date: post.data.pubDate.toISOString().slice(0, 10),
+	description: post.data.description,
+	href: `/posts/${post.id}/`,
+}));
 ---
 
 <Layout title="Wild Grove">
@@ -36,17 +38,19 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
     	</header>
 
 		<!-- Categories -->
-	<div class="container-page py-4">
-        	<!-- Category chips -->
-        	<nav class="hidden md:flex gap-2 justify-center flex">
-          	{categories.map((c) => <a class="chip" href="#">{c}</a>)}
-        	</nav>
+		{categories.length > 0 && (
+			<div class="container-page py-4">
+				<!-- Category chips -->
+				<nav class="hidden justify-center gap-2 md:flex">
+					{categories.map((c) => <span class="chip">{c}</span>)}
+				</nav>
 
-      		<!-- Mobile chips row -->
-      		<div class="md:hidden container-page pb-4 flex flex-wrap gap-2 justfiy-center">
-        	{categories.map((c) => <a class="chip" href="#">{c}</a>)}
-      		</div>
-		</div>
+				<!-- Mobile chips row -->
+				<div class="container-page flex flex-wrap gap-2 pb-4 md:hidden">
+					{categories.map((c) => <span class="chip">{c}</span>)}
+				</div>
+			</div>
+		)}
 
 		<main class="body-stage relative overflow-hidden">
 			<div class="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black via-black/65 to-transparent"></div>

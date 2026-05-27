@@ -68,6 +68,15 @@ const publishedOn = post.data.pubDate.toLocaleDateString("en-US", {
       </div>
     </main>
 
+    <div class="lightbox" data-lightbox-modal aria-hidden="true">
+      <button class="lightbox__backdrop" type="button" data-lightbox-close aria-label="Close image viewer"></button>
+      <figure class="lightbox__figure" role="dialog" aria-modal="true" aria-label="Expanded image viewer">
+        <button class="lightbox__close" type="button" data-lightbox-close>Close</button>
+        <img class="lightbox__image" data-lightbox-image alt="" />
+        <figcaption class="lightbox__caption" data-lightbox-caption></figcaption>
+      </figure>
+    </div>
+
     <footer class="bg-neutral-900">
       <div class="container-page py-10 text-center text-sm text-white/60">
         <p>&copy; {new Date().getFullYear()} Wild Grove</p>
@@ -76,3 +85,56 @@ const publishedOn = post.data.pubDate.toLocaleDateString("en-US", {
     </footer>
   </div>
 </Layout>
+
+<script>
+  const lightbox = document.querySelector("[data-lightbox-modal]");
+  const lightboxImage = document.querySelector("[data-lightbox-image]");
+  const lightboxCaption = lightbox?.querySelector("[data-lightbox-caption]");
+  const lightboxTriggers = document.querySelectorAll("[data-lightbox]");
+  let activeTrigger = null;
+
+  const closeLightbox = () => {
+    if (!(lightbox instanceof HTMLElement)) return;
+
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lightbox-open");
+
+    if (activeTrigger instanceof HTMLElement) {
+      activeTrigger.focus();
+    }
+  };
+
+  lightboxTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      if (
+        !(trigger instanceof HTMLAnchorElement) ||
+        !(lightbox instanceof HTMLElement) ||
+        !(lightboxImage instanceof HTMLImageElement) ||
+        !(lightboxCaption instanceof HTMLElement)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      activeTrigger = trigger;
+
+      const image = trigger.querySelector("img");
+      lightboxImage.src = trigger.href;
+      lightboxImage.alt = image?.getAttribute("alt") ?? "";
+      lightboxCaption.textContent = trigger.dataset.lightboxTitle ?? image?.getAttribute("alt") ?? "";
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      lightbox.querySelector("button")?.focus();
+    });
+  });
+
+  document.querySelectorAll("[data-lightbox-close]").forEach((button) => {
+    button.addEventListener("click", closeLightbox);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+  });
+</script>

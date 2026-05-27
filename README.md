@@ -1,46 +1,59 @@
 # wildgrove.dev
 
-`wildgrove.dev` is an Astro backed static site. Day-to-day development still happens with Astro's local development server, while Docker gives the project a production-style build and serving workflow.
+`wildgrove.dev` is an Astro-backed static site. Day-to-day development still happens with Astro's local development server, while Docker gives the project a production-style build and serving workflow.
 
-## Local Development
+## Externalized Content and Assets
 
-Use Astro's dev server when you are actively building the site:
+The site keeps post content and shared visual assets in separate repositories that are mounted as Git submodules:
+
+- `content` stores posts and curated site data
+- `public/assets` stores public images, logos, fonts, and other static assets
+
+## Development Workflow
+
+Astro's local development server is used for site work:
 
 ```bash
 npm run dev
 ```
 
-## Docker Workflow
+The Docker setup provides a production-style local serving path:
 
-The Docker setup uses:
-
-- a multi-stage `Dockerfile` to build the site with Node
+- a multi-stage `Dockerfile` builds the site with Node
 - `nginx` to serve the generated `dist/` output
-- `compose.yml` to start the site locally with one command
+- `compose.yml` runs the containerized site on `http://localhost:8080`
 
-Start the containerized site locally:
+Containerized local run:
 
 ```bash
 docker compose up --build
 ```
 
-Then open `http://localhost:8080`.
+## Deployment
 
-## Useful Commands
+The public site is deployed with Cloudflare Pages. The Cloudflare project builds from the GitHub repository and serves Astro's generated static output.
 
-Build the Astro site without Docker:
+Cloudflare Pages settings:
+
+- build command: `npm run build`
+- build output directory: `dist`
+- submodules: enabled through the GitHub checkout workflow
+
+## Project Commands
+
+Astro build:
 
 ```bash
 npm run build
 ```
 
-Build the Docker image directly:
+Docker image build:
 
 ```bash
 docker build -t wildgrove-dev .
 ```
 
-Run the Docker image directly:
+Docker image run:
 
 ```bash
 docker run --rm -p 8080:80 wildgrove-dev

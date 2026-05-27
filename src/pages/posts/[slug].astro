@@ -53,7 +53,14 @@ const publishedOn = post.data.pubDate.toLocaleDateString("en-US", {
           <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/55">
             <time datetime={post.data.pubDate.toISOString()}>{publishedOn}</time>
             {post.data.tags.length > 0 && (
-              <span>{post.data.tags.join(" · ")}</span>
+              <span>
+                {post.data.tags.map((tag, index) => (
+                  <>
+                    {index > 0 && " · "}
+                    <a href={`/posts/?tag=${encodeURIComponent(tag)}`} class="hover:text-white">{tag}</a>
+                  </>
+                ))}
+              </span>
             )}
           </div>
 

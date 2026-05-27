@@ -42,12 +42,12 @@ const posts = allPosts.slice(0, 3).map((post) => ({
 			<div class="container-page py-4">
 				<!-- Category chips -->
 				<nav class="hidden justify-center gap-2 md:flex">
-					{categories.map((c) => <span class="chip">{c}</span>)}
+					{categories.map((c) => <a href={`/posts/?tag=${encodeURIComponent(c)}`} class="chip">{c}</a>)}
 				</nav>
 
 				<!-- Mobile chips row -->
 				<div class="container-page flex flex-wrap gap-2 pb-4 md:hidden">
-					{categories.map((c) => <span class="chip">{c}</span>)}
+					{categories.map((c) => <a href={`/posts/?tag=${encodeURIComponent(c)}`} class="chip">{c}</a>)}
 				</div>
 			</div>
 		)}

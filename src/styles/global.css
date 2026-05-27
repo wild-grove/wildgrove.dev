@@ -47,6 +47,10 @@
            hover:bg-white/15 transition;
   }
 
+  .chip-active {
+    @apply bg-white/20 text-white ring-white/30;
+  }
+
   .card {
     @apply rounded-2xl border border-white/10 bg-white/10
            shadow-lg shadow-black/20 p-5 sm:p-6;

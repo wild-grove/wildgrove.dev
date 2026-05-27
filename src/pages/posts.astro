@@ -5,6 +5,8 @@ import Layout from "../layouts/Layout.astro";
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
+
+const tags = [...new Set(posts.flatMap((post) => post.data.tags).filter(Boolean))];
 ---
 
 <Layout title="Posts | Wild Grove">
@@ -34,9 +36,17 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
 						Notes, experiments, research, and updates for Wild Grove. Some posts may be more technical than others, 
 						but all are written with a desire to share knowledge.
 					</p>
+					{tags.length > 0 && (
+						<nav class="mt-6 flex flex-wrap gap-2" aria-label="Filter posts by tag">
+							<a href="/posts/" class="chip" data-tag-filter="all">All</a>
+							{tags.map((tag) => (
+								<a href={`/posts/?tag=${encodeURIComponent(tag)}`} class="chip" data-tag-filter={tag}>{tag}</a>
+							))}
+						</nav>
+					)}
 					<ul class="mt-8 space-y-4 border-t border-white/8 pt-6">
 						{posts.map((post) => (
-							<li class="journal-entry">
+							<li class="journal-entry" data-post-tags={post.data.tags.join(",")}>
 								<a href={`/posts/${post.id}/`} class="block group">
 									<div class="flex items-start justify-between gap-6">
 										<h2 class="text-xl font-semibold text-white transition group-hover:text-white/80 sm:text-2xl">
@@ -73,3 +83,26 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
 		</footer>
 	</div>
 </Layout>
+
+<script>
+	const params = new URLSearchParams(window.location.search);
+	const selectedTag = params.get("tag");
+	const postItems = document.querySelectorAll("[data-post-tags]");
+	const tagFilters = document.querySelectorAll("[data-tag-filter]");
+
+	tagFilters.forEach((filter) => {
+		const filterTag = filter.getAttribute("data-tag-filter");
+		const isActive = selectedTag ? filterTag === selectedTag : filterTag === "all";
+		filter.classList.toggle("chip-active", isActive);
+	});
+
+	postItems.forEach((item) => {
+		if (!selectedTag) {
+			item.removeAttribute("hidden");
+			return;
+		}
+
+		const tags = item.getAttribute("data-post-tags")?.split(",") ?? [];
+		item.toggleAttribute("hidden", !tags.includes(selectedTag));
+	});
+</script>

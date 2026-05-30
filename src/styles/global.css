@@ -71,6 +71,14 @@
     @apply rounded-3xl border border-white/12 bg-black/55 shadow-2xl shadow-black/45 backdrop-blur-md;
   }
 
+  .current-focus-panel {
+    @apply rounded-2xl border border-white/12 border-l-4 border-l-white/30 bg-black/50 shadow-xl shadow-black/35 backdrop-blur-md;
+  }
+
+  .focus-chip {
+    @apply rounded-full border border-emerald-200/25 bg-emerald-300/10 px-2.5 py-0.5 text-xs font-medium text-emerald-100/80;
+  }
+
   .side-panel {
     @apply rounded-3xl border border-white/12 bg-black/55 p-5 shadow-2xl shadow-black/45 backdrop-blur-md sm:p-6;
   }

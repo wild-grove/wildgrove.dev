@@ -18,6 +18,12 @@ const posts = allPosts.slice(0, 3).map((post) => ({
 	description: post.data.description,
 	href: `/posts/${post.id}/`,
 }));
+
+const chipClassFor = (kind: string) => (
+	kind.toLowerCase() === "research/study"
+		? "focus-chip focus-chip-research"
+		: "focus-chip"
+);
 ---
 
 <Layout title="Wild Grove">
@@ -119,7 +125,7 @@ const posts = allPosts.slice(0, 3).map((post) => ({
 												{item.title}
 											</h2>
 											{item.kind && (
-												<span class="focus-chip">{item.kind}</span>
+												<span class={chipClassFor(item.kind)}>{item.kind}</span>
 											)}
 										</div>
 										<p class="mt-2 max-w-2xl text-sm leading-6 text-white/64">
@@ -138,7 +144,16 @@ const posts = allPosts.slice(0, 3).map((post) => ({
 									<p class="label-font text-xs uppercase tracking-[0.26em] text-white/38">On deck</p>
 									<ul class="mt-2 space-y-2 text-sm leading-6 text-white/62">
 										{current.onDeck.map((idea) => (
-											<li>{idea}</li>
+											<li>
+												{typeof idea === "string" ? (
+													idea
+												) : (
+													<>
+														<span class="font-medium text-white/78">{idea.title}</span>
+														{idea.desc && <span class="text-white/48"> - {idea.desc}</span>}
+													</>
+												)}
+											</li>
 										))}
 									</ul>
 								</div>
